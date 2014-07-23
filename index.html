@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" >
+<title>Go to Top</title>
+<style>
+.container {
+	width: 100%;
+	height: 1500px;
+	overflow: hidden;
+}
+.go-to-top {
+	display: none;
+	width: 40px;
+	height: 39px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	background: #000 url(images/scrolltoparrow.png) no-repeat center center;
+	position: fixed;
+	_position: absolute;
+	right: 9px;
+	bottom: 50px;
+	cursor: pointer;
+	opacity: 0.20;
+	filter: Alpha(opacity=20) !important;
+	text-indent: -9999px;
+	overflow: hidden;
+	_top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||85)-(parseInt(this.currentStyle.marginBottom,10)||85)));
+}
+</style>
+</head>
+
+<body>
+<div class="container">&nbsp;</div>
+<div class="go-to-top" id="goToTop"></div>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+
+$(function() {
+	$(window).on('scroll resize', function() {
+		if (document.documentElement.scrollTop + document.body.scrollTop > 0) {
+			$("#goToTop").show();
+		} else {
+			$("#goToTop").hide();
+		}
+	});
+	$('#goToTop').on('click', function() {
+		var Timer = setInterval(GoTop,10);
+		function GoTop() { 
+			if (document.documentElement.scrollTop + document.body.scrollTop < 1) {
+				clearInterval(Timer);
+			} else {
+				document.documentElement.scrollTop /= 1.1;
+				document.body.scrollTop /= 1.1;
+			}
+		}
+	}
+	)
+});
+
+</script>
+</body>
+</html>
